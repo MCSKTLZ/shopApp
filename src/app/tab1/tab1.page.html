@@ -3,15 +3,51 @@
    <div slot="start" style="padding: 0 10px;">
     <img src="../../assets/images/logo.svg" alt="" style="height: 30px;">
    </div>
+   <ion-searchbar animated ></ion-searchbar>
+   <ion-button slot="end">
+    <ion-icon name="notifications"></ion-icon>
+   </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <!-- <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Home</ion-title>
     </ion-toolbar>
-  </ion-header>
+  </ion-header> -->
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <!-- pas utilisé ici -->
+  <!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
+
+  <swiper effect="fade" [autoplay]="true" [keyboard]="true" [pagination]="true" [scrollbar]="true">
+    <ng-template *ngFor="let image of mySlides" swiperSlide><img src={{image}}></ng-template>
+  </swiper>
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-between">
+      <ion-col size="4">
+        <div class="bold">Products</div>
+      </ion-col>
+      <ion-col size="6" class="ion-text-right">
+        <ion-icon name="filter" ></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngFor="let p of myProducts">
+        <ion-card>
+          <ion-card-header>
+            <img src={{p.picture}}>
+            <ion-card-subtitle>{{p.category}}</ion-card-subtitle>
+            <ion-card-title>{{p.title}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            {{p.price}} {{p.currency}}
+            <br>
+            <ion-button>Add to basket</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
