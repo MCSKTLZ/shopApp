@@ -4,12 +4,12 @@
     <img src="../../assets/images/logo.svg" alt="" style="height: 30px;">
    </div>
    <ion-searchbar animated ></ion-searchbar>
-   <ion-button slot="end">
-    <ion-icon name="notifications"></ion-icon>
+   <ion-button slot="end" color="danger" style="height: auto; width: auto; overflow: visible;">
+    <ion-icon slot="icon-only" name="notifications"></ion-icon>
+    <ion-badge color="success" style="position: absolute; right: -5px; top: -3px;overflow-wrap: anywhere;">456</ion-badge>
    </ion-button>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
   <!-- <ion-header collapse="condense">
     <ion-toolbar>
@@ -44,7 +44,7 @@
           <ion-card-content>
             {{p.price}} {{p.currency}}
             <br>
-            <ion-button>Add to basket</ion-button>
+            <ion-button (click)="addToCart(p.id)">Add to basket</ion-button>
           </ion-card-content>
         </ion-card>
       </ion-col>

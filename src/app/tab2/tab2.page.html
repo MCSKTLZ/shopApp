@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="danger">
     <ion-title>
       Mon panier
     </ion-title>
@@ -7,11 +7,62 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Zorro</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 2 pagedsf"></app-explore-container>
+  <ion-grid>
+    <ion-row class="ion-justify-content-between">
+      <ion-col>
+        <div class="bold ion-text-center">My products {{cartItemCount | async}}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="myBasket.length == 0 ">
+      <ion-col class="ion-margin-top">
+        <div class="ion-text-center">
+          No products in the basket
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngFor="let p of myBasket">
+        <ion-card>
+          <ion-card-header>
+            <img src={{p.picture}}>
+            <ion-card-subtitle>{{p.category}}</ion-card-subtitle>
+            <ion-card-title>{{p.title}}</ion-card-title>
+            <div>{{p.price}} {{p.currency}}</div>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-row class="ion-justify-content-between">
+              <ion-col>
+                <div class="ion-align-item-center"> Quantity : {{p.quantity}} </div>
+              </ion-col>
+              <ion-col>
+                <ion-button color="success" (click)="addOneProduct(p.id)"><ion-icon name="add"></ion-icon></ion-button>
+                <ion-button color="danger" (click)="removeOneProduct(p.id)"><ion-icon name="remove"></ion-icon></ion-button>
+              </ion-col>
+            </ion-row>
+            <ion-row class="ion-justify-content-center">
+              <ion-button color="dark" (click)="removeFromCart(p.id)">Remove from basket</ion-button>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card color="dark"*ngIf="myBasket.length > 0">
+          <ion-card-header>
+            <ion-card-title>
+              Total : {{totalBasket | async}} €
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-row *ngFor="let p of myBasket">
+              <div>{{p.quantity}} x {{p.title}} = {{p.price*p.quantity}} {{p.currency}}</div>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+
+
