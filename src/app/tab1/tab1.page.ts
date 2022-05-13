@@ -3,6 +3,8 @@ import SwiperCore, { Autoplay, Keyboard, Pagination, Scrollbar, Zoom } from 'swi
 import { Product } from "../Models/product"
 import { CartServiceService } from '../Services/cart-service.service';
 
+
+
 SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom]);
 
 @Component({

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Product } from "../Models/product";
 import { BehaviorSubject } from "rxjs";
+import { ToastService } from '../Services/toast.service'
 
 
 @Injectable({
@@ -19,7 +20,7 @@ export class CartServiceService {
   public total = new BehaviorSubject(0)
   private cartItemCount = new BehaviorSubject(0);
 
-  constructor() { }
+  constructor(public toastService : ToastService) { }
 
   getProducts(): Product[] {    
     return this.products;
@@ -42,6 +43,7 @@ export class CartServiceService {
     let product = this.products.find(x => x.id == id);
     this.total.next(this.total.value + product.price);
     this.cartItemCount.next(this.cartItemCount.value + 1)
+    this.toastService.productAddedToast()
     
     for(let i of this.cart) {
       if(i.id == product.id) {
@@ -62,6 +64,7 @@ export class CartServiceService {
     this.products.find(x => x.id == id).quantity = 0;
 
     this.cart.splice(productCartId, 1)
+    this.toastService.productRemovedToast()
   }
   addOneProduct(id: number) {
     let product = this.products.find(x => x.id == id);
